@@ -23,8 +23,10 @@ async function placeStorageOrder() {
   await api.isReady;
   // 1. Construct place-storage-order tx
   //TODO: take from api
-  const fileCid = "QmXxiZnM4LBDTzcetpA3kTo7tgBHAwyqhEaVc3Sdn23P2G"; // IPFS CID, take `Qm123` as example
-  const fileSize = 2 * 1024 * 1024 * 1024; // Let's say 2 gb(in byte)
+  // const fileCid = "QmXxiZnM4LBDTzcetpA3kTo7tgBHAwyqhEaVc3Sdn23P2G"; // IPFS CID, take `Qm123` as example
+  const fileCid = api.cid;
+  const fileSize = api.cumulativeSize; // Let's say 2 gb(in byte)
+  console.log({ fileCid, fileSize });
   // DON'T CHANGE
   const tips = 0;
   const memo = "";

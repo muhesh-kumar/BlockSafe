@@ -1,7 +1,0 @@
-arr <- array of n elements
-d <- element to search for
-
-Function linear_search(arr,d,n):
-for (int i=0;i<n;i++)
-    if(a[i]==d) return 1;
-return 0;

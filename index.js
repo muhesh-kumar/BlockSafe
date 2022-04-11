@@ -19,6 +19,7 @@ const express = require("express");
 const bodyparser = require("body-parser");
 const fileupload = require("express-fileupload");
 const fs = require("fs");
+const path = require("path");
 
 console.log(ipfsClient);
 const ipfs = ipfsClient.create({
@@ -29,11 +30,13 @@ const ipfs = ipfsClient.create({
 const FILE_DIR = "files";
 const app = express();
 app.set("view engine", "ejs");
+app.use(express.static(path.join(__dirname, "public")));
+
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(fileupload());
 
 app.get("/", (req, res) => {
-  res.render("home");
+  res.render("index");
 });
 
 app.listen(3000, () => {

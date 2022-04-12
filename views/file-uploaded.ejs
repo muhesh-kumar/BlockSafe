@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Block Safe | <%= title %></title>
+    <link rel="stylesheet" href="css/styles.min.css" />
+  </head>
+  <body>
+    <div class="contact-form signin-container" id="file-upload">
+      <h1>File Uploaded!</h1>
+      <p>File Name: <%= fileName %></p>
+      <p>
+        View Link:
+        <a href="https://ipfs.io/ipfs/<%= fileHash %>"
+          ><%= fileHash %> <%= size %></a
+        >
+      </p>
+    </div>
+  </body>
+</html>

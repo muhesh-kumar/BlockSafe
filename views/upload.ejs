@@ -4,19 +4,68 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Block Safe | Upload Status</title>
+
+    <title>Block Safe | <%= title %></title>
+
     <link rel="stylesheet" href="css/styles.min.css" />
   </head>
-  <body>
-    <div class="contact-form signin-container" id="file-upload">
-      <h1>File Uploaded</h1>
-      <p>File Name: <%= fileName %></p>
-      <p>
-        View Link:
-        <a href="https://ipfs.io/ipfs/<%= fileHash %>"
-          ><%= fileHash %> <%= size %></a
+
+  <body class="signin-body">
+    <%- include("./partials/navbar.ejs") %>
+
+    <header class="signin-header">
+      <div class="signin-container">
+        <form
+          class="signin-form"
+          action="upload"
+          method="POST"
+          enctype="multipart/form-data"
         >
-      </p>
-    </div>
+          <h3><span>UPLOAD FILE</span></h3>
+          <div class="vertical-container">
+            <label for="fileName">File Name</label>
+            <input type="text" name="fileName" />
+          </div>
+          <div class="vertical-container">
+            <label for="file">Upload a File</label>
+            <input type="file" name="file" id="file" />
+          </div>
+          <input
+            type="submit"
+            value="submit"
+            class="btn"
+            disabled="true"
+            id="btn-dis"
+          />
+        </form>
+      </div>
+    </header>
+    <%- include("./partials/footer.ejs") %>
   </body>
+  <script>
+    const { ethereum } = window;
+    const metamaskIsInstalled = ethereum && ethereum.isMetaMask;
+
+    async function onInit1() {
+      if (metamaskIsInstalled) {
+        const accounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        const networkId = await window.ethereum.request({
+          method: "net_version",
+        });
+        const account = accounts[0];
+        if (networkId == 80001) {
+          console.log(account);
+          document.getElementById("btn-dis").disabled = false;
+        } else {
+          alert("Change Network to Mumbai Testnet");
+        }
+      } else {
+        alert("Connect to Metamask");
+      }
+    }
+
+    onInit1();
+  </script>
 </html>

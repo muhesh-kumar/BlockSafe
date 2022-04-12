@@ -98,10 +98,6 @@ async function addFileAuth(file_name, file_path) {
   console.log("FILESTAT");
   console.log(fileStat);
   await placeStorageOrder(fileStat.cid, fileStat.cumulativeSize);
-  // return {
-  //     cid: cid.path,
-  //     size: fileStat.cumulativeSize
-  // };
   return {
     cumulativeSize: fileStat.cumulativeSize,
     cid: fileStat.cid,

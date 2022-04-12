@@ -1,9 +1,6 @@
 const { Keyring } = require("@polkadot/api");
 const { ApiPromise, WsProvider } = require("@polkadot/api");
-const {
-  typesBundleForPolkadot,
-  crustTypes,
-} = require("@crustio/type-definitions");
+const { typesBundleForPolkadot } = require("@crustio/type-definitions");
 const crustChainEndpoint = "wss://rpc.crust.network";
 
 const api = new ApiPromise({
@@ -23,7 +20,7 @@ async function placeStorageOrder(cid, size) {
   // 2. Load seeds(account)
   const seeds = process.env.CRUST_WALLET_SEED_PHRASE;
   const kr = new Keyring({ type: "sr25519" });
-console.log(seeds);
+  console.log(seeds);
   // const krp = kr.addFromUri(seeds);
   const krp = kr.addFromUri(seeds);
 

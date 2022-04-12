@@ -13,6 +13,7 @@ const ipfs = ipfsClient.create({
   port: "5001",
   protocol: "http",
 });
+
 const FILE_DIR = "files";
 const app = express();
 app.set("view engine", "ejs");
@@ -22,8 +23,11 @@ app.use(bodyparser.urlencoded({ extended: true }));
 app.use(fileupload());
 
 app.get("/", (req, res) => {
-  res.render("index");
+  res.render("index", {
+    title: "Home",
+  });
 });
+
 app.get("/about", (req, res) => {
   res.render("about", {
     title: "About Us",

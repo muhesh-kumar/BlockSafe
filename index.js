@@ -24,6 +24,29 @@ app.use(fileupload());
 app.get("/", (req, res) => {
   res.render("index");
 });
+app.get("/about", (req, res) => {
+  res.render("about", {
+    title: "About Us",
+  });
+});
+
+app.get("/contact", (req, res) => {
+  res.render("contact", {
+    title: "Contact Us",
+  });
+});
+
+app.get("/signin", (req, res) => {
+  res.render("signin", {
+    title: "Sign In",
+  });
+});
+
+app.get("/signup", (req, res) => {
+  res.render("signup", {
+    title: "Sign Up",
+  });
+});
 
 app.listen(3000, () => {
   console.log("SERVER is listening");

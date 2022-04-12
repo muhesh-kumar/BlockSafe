@@ -1,5 +1,5 @@
 {
-  "name": "BlockSafe",
+  "name": "blocksafe",
   "version": "1.0.0",
   "description": "A sample Truffle project that allows developers to deploy to the Polygon Matic PoS chain",
   "main": "truffle-config.js",
@@ -23,7 +23,7 @@
     "Truffle",
     "dapp"
   ],
-  "author": "Faina Shalts",
+  "contributors": ["Arjun Prashanth <arjunp0710@gmail.com>", "Kaushal Nilesh Bharathe", "Muhesh Kumar", "Gaurav"],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/truffle-box/polygon-box/issues"

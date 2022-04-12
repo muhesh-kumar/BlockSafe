@@ -17,8 +17,11 @@
 .signin-container {
   display: flex;
   gap: 1rem;
+  flex-direction: column;
   justify-content: center;
-  width: 100%;
+  align-items: center;
+  margin: 0 auto;
+  // width: 100%;
   .signin-form {
     display: flex;
     flex-direction: column;
@@ -68,4 +71,13 @@
       font-family: "Montserrat", sans-serif;
     }
   }
+}
+
+#file-upload {
+  margin-top: 15rem !important;
+  width: 60% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
 }

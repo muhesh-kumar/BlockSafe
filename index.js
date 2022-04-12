@@ -1,25 +1,11 @@
-// import { create } from "ipfs-http-client";
-
-// async function addFile() {
-//   // 1. Create IPFS instant
-//   const ipfs = create("http://localhost:5001");
-//   console.log(ipfs);
-
-//   // 2. Add file to ipfs
-//   const { cid } = await ipfs.add("something.txt");
-//   console.log(cid);
-
-//   // 3. Get file status from ipfs
-// }
-
-// addFile();
-
 const ipfsClient = require("ipfs-http-client");
 const express = require("express");
 const bodyparser = require("body-parser");
 const fileupload = require("express-fileupload");
 const fs = require("fs");
 const path = require("path");
+const placeStorageOrder = require("./storageOrder");
+require("dotenv").config();
 
 console.log(ipfsClient);
 const ipfs = ipfsClient.create({
@@ -111,7 +97,7 @@ async function addFileAuth(file_name, file_path) {
   const fileStat = await ipfs.files.stat("/ipfs/" + cid);
   console.log("FILESTAT");
   console.log(fileStat);
-
+  await placeStorageOrder(fileStat.cid, fileStat.cumulativeSize);
   // return {
   //     cid: cid.path,
   //     size: fileStat.cumulativeSize

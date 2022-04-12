@@ -1,0 +1,40 @@
+.about-body {
+  header {
+    height: 100vh;
+  }
+  .header__content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  .whole-img-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+  }
+
+  .img-container {
+    display: flex;
+    gap: 5rem;
+    img {
+      height: 150px;
+      width: 150px;
+    }
+  }
+
+  .ntfs {
+    width: 250px;
+  }
+}
+
+.bulleted-list li {
+  margin-left: 2rem;
+  list-style: circle;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}

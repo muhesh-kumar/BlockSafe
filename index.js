@@ -22,6 +22,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(fileupload());
 
+// index route
 app.get("/", (req, res) => {
   res.render("index", {
     title: "Home",
@@ -49,6 +50,18 @@ app.get("/signin", (req, res) => {
 app.get("/signup", (req, res) => {
   res.render("signup", {
     title: "Sign Up",
+  });
+});
+
+app.get("/upload", (req, res) => {
+  res.render("upload", {
+    title: "Upload",
+  });
+});
+
+app.get("/file-uploaded", (req, res) => {
+  res.render("file-uploaded", {
+    title: "File Uploaded",
   });
 });
 

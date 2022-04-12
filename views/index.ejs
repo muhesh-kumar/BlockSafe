@@ -5,34 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Project</title>
+    <%- include("./partials/favicon.ejs") %>
+
+    <title>Block Safe | <%= title %></title>
 
     <link rel="stylesheet" href="css/styles.min.css" />
   </head>
-  <body class="signin-body">
+  <body>
     <%- include("./partials/navbar.ejs") %>
 
-    <header class="signin-header">
-      <div class="signin-container">
-        <form
-          class="signin-form"
-          action="upload"
-          method="POST"
-          enctype="multipart/form-data"
-        >
-          <h3><span>UPLOAD FILE</span></h3>
-          <div class="vertical-container">
-            <label for="fileName">File Name</label>
-            <input type="text" name="fileName" />
-          </div>
-          <div class="vertical-container">
-            <label for="file">Upload a File</label>
-            <input type="file" name="file" />
-          </div>
-          <input type="submit" value="submit" class="btn" />
-        </form>
+    <header>
+      <div class="container">
+        <div class="header__content">
+          <h1>
+            Complete Decentralized Solution for your certificates and documents
+          </h1>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet
+            laudantium debitis possimus facere ducimus illo delectus laboriosam
+            maxime exercitationem fugiat?
+          </p>
+          <a href="/" class="btn">Upload Certificate</a>
+        </div>
+        <div class="header__image">
+          <img
+            src="https://img.icons8.com/external-glyph-wichaiwi/1024/534340/external-blockchain-non-fungible-token-glyph-wichaiwi-2.png"
+          />
+        </div>
       </div>
     </header>
+
     <%- include("./partials/footer.ejs") %>
   </body>
 </html>

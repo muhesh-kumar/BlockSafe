@@ -23,7 +23,12 @@
     "Truffle",
     "dapp"
   ],
-  "contributors": ["Arjun Prashanth <arjunp0710@gmail.com>", "Kaushal Nilesh Bharathe", "Muhesh Kumar", "Gaurav"],
+  "contributors": [
+    "Arjun Prashanth <arjunp0710@gmail.com>",
+    "Kaushal Nilesh Bharathe",
+    "Muhesh Kumar",
+    "Gaurav"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/truffle-box/polygon-box/issues"
@@ -34,12 +39,14 @@
     "@polkadot/api": "^7.15.1",
     "@polkadot/keyring": "^9.0.1",
     "body-parser": "^1.20.0",
+    "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.0",
     "ejs": "^3.1.6",
     "ethers": "^5.6.2",
     "express": "^4.17.3",
     "express-fileupload": "^1.3.1",
     "ipfs-http-client": "^56.0.2",
+    "it-all": "^1.0.6",
     "web3": "^1.7.3"
   },
   "devDependencies": {

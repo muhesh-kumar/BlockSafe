@@ -5,6 +5,13 @@ const fileupload = require("express-fileupload");
 const fs = require("fs");
 const path = require("path");
 const placeStorageOrder = require("./storageOrder");
+const cookieParser = require("cookie-parser");
+const all = require("it-all");
+var Web3 = require("web3");
+var web3 = new Web3(Web3.givenProvider || "https://rpc-mumbai.matic.today");
+web3.eth.getAccounts(console.log);
+
+// var web3 = new Web3(window.ethereum);
 require("dotenv").config();
 
 console.log(ipfsClient);
@@ -18,7 +25,7 @@ const FILE_DIR = "files";
 const app = express();
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
-
+app.use(cookieParser());
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(fileupload());
 
@@ -71,13 +78,16 @@ app.listen(3000, () => {
 app.post("/upload", (req, res) => {
   const file = req.files.file;
   const fileName = req.body.fileName;
+  const account = req.body.account;
+  console.log("account from form");
+  console.log(account);
   const filePath = FILE_DIR + "/" + fileName;
   file.mv(filePath, async (err) => {
     if (err) {
       console.log("eRRor");
       return res.status(500).send(err);
     }
-    const fileDetail = await addFileAuth(fileName, filePath);
+    const fileDetail = await addFileAuth(fileName, filePath, account);
     console.log(fileDetail);
     const size = fileDetail.cumulativeSize;
     const fileHash = fileDetail.cid;
@@ -86,26 +96,17 @@ app.post("/upload", (req, res) => {
         console.log(err);
       }
     });
-    res.render("upload", { fileName, fileHash, size });
+    res.render("file-uploaded", {
+      title: "File Uploaded",
+      fileName,
+      fileHash,
+      size,
+    });
   });
 });
-
-const addFile = async (file_name, file_path) => {
-  const fileBuffer = fs.readFileSync(file_path);
-  const fileAdded = await ipfs.add({
-    path: file_path,
-    content: fileBuffer,
-  });
-
-  console.log(fileAdded);
-  const fileHash = fileAdded.cid;
-
-  return fileHash;
-};
-
 const ethers = require("ethers");
 
-async function addFileAuth(file_name, file_path) {
+async function addFileAuth(file_name, file_path, dir_name) {
   const pair = ethers.Wallet.createRandom();
   console.log(pair);
   const sig = await pair.signMessage(pair.address);
@@ -124,22 +125,47 @@ async function addFileAuth(file_name, file_path) {
       authorization: `Basic ${authHeader}`,
     },
   });
-
+  // try to create the directory
+  try {
+    await ipfs.files.mkdir("/" + dir_name);
+  } catch (error) {
+    console.error(error);
+  }
+  let result = await ipfs.files.stat("/" + dir_name);
+  console.log("making direfctoryu");
+  console.log(result);
+  console.log("ls dir");
+  result = await all(ipfs.files.ls("/example"));
+  console.log(result);
+  console.log(file_path);
+  await ipfs.files.write("/" + file_name, fileBuffer, { create: true });
+  console.log("ls dir");
+  result = await all(ipfs.files.ls("/"));
+  console.log(result);
+  await ipfs.files.mv("/" + file_name, "/" + dir_name);
+  result = await all(ipfs.files.ls("/example"));
+  const cid = result[0].cid;
+  const size = result[0].size;
+  // get current account from cookies
   // // 2. Add file to ipfs
-  const { cid } = await ipfs.add({
-    path: file_path,
-    content: fileBuffer,
-  });
+  // const { cid } = await ipfs.add({
+  //   path: file_path,
+  //   content: fileBuffer,
+  // });
   console.log("CIDDDDD");
   console.log(cid);
 
   // // 3. Get file status from ipfs
-  const fileStat = await ipfs.files.stat("/ipfs/" + cid);
-  console.log("FILESTAT");
-  console.log(fileStat);
-  await placeStorageOrder(fileStat.cid, fileStat.cumulativeSize);
+  // const fileStat = await ipfs.files.stat("/ipfs/" + cid);
+  // console.log("FILESTAT");
+  // console.log(fileStat);
+  // await placeStorageOrder(fileStat.cid, fileStat.cumulativeSize);
+  // return {
+  //   cumulativeSize: fileStat.cumulativeSize,
+  //   cid: fileStat.cid,
+  // };
   return {
-    cumulativeSize: fileStat.cumulativeSize,
-    cid: fileStat.cid,
+    cumulativeSize: size,
+    cid: cid,
   };
 }

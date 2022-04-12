@@ -1,71 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Block Safe | <%= title %></title>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="css/styles.min.css" />
-  </head>
+  <title>Block Safe | <%= title %></title>
 
-  <body class="signin-body">
-    <%- include("./partials/navbar.ejs") %>
+  <link rel="stylesheet" href="css/styles.min.css" />
+</head>
 
-    <header class="signin-header">
-      <div class="signin-container">
-        <form
-          class="signin-form"
-          action="upload"
-          method="POST"
-          enctype="multipart/form-data"
-        >
-          <h3><span>UPLOAD FILE</span></h3>
-          <div class="vertical-container">
-            <label for="fileName">File Name</label>
-            <input type="text" name="fileName" />
-          </div>
-          <div class="vertical-container">
-            <label for="file">Upload a File</label>
-            <input type="file" name="file" id="file" />
-          </div>
-          <input
-            type="submit"
-            value="submit"
-            class="btn"
-            disabled="true"
-            id="btn-dis"
-          />
-        </form>
-      </div>
-    </header>
-    <%- include("./partials/footer.ejs") %>
-  </body>
-  <script>
-    const { ethereum } = window;
-    const metamaskIsInstalled = ethereum && ethereum.isMetaMask;
+<body class="signin-body">
+  <%- include("./partials/navbar.ejs") %>
 
-    async function onInit1() {
-      if (metamaskIsInstalled) {
-        const accounts = await window.ethereum.request({
-          method: "eth_requestAccounts",
-        });
-        const networkId = await window.ethereum.request({
-          method: "net_version",
-        });
-        const account = accounts[0];
-        if (networkId == 80001) {
-          console.log(account);
-          document.getElementById("btn-dis").disabled = false;
-        } else {
-          alert("Change Network to Mumbai Testnet");
-        }
+  <header class="signin-header">
+    <div class="signin-container">
+      <form class="signin-form" action="upload" method="POST" enctype="multipart/form-data">
+        <h3><span>UPLOAD FILE</span></h3>
+        <div class="vertical-container">
+          <label for="fileName">File Name</label>
+          <input type="text" name="fileName" />
+        </div>
+        <div class="vertical-container">
+          <label for="file">Upload a File</label>
+          <input type="file" name="file" id="file" />
+        </div>
+        <input type="submit" value="submit" class="btn" disabled="true" id="btn-dis" />
+        <input type="hidden" name="account" id="account" value="" />
+      </form>
+    </div>
+  </header>
+  <%- include("./partials/footer.ejs") %>
+</body>
+<script>
+  const {
+    ethereum
+  } = window;
+  const metamaskIsInstalled = ethereum && ethereum.isMetaMask;
+  async function onInit1() {
+    if (metamaskIsInstalled) {
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      const networkId = await window.ethereum.request({
+        method: "net_version",
+      });
+      const account = accounts[0];
+      if (networkId == 80001) {
+        console.log(String(account));
+        document.getElementById("account").value = String(account);
+        document.getElementById("btn-dis").disabled = false;
+
       } else {
-        alert("Connect to Metamask");
+        alert("Change Network to Mumbai Testnet");
       }
+    } else {
+      alert("Connect to Metamask");
     }
+  }
 
-    onInit1();
-  </script>
+  onInit1();
+</script>
+
 </html>

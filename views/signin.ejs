@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Project</title>
+    <title>Block Safe | <%= title %></title>
 
     <link rel="stylesheet" href="css/styles.min.css" />
   </head>
@@ -14,25 +14,31 @@
 
     <header class="signin-header">
       <div class="signin-container">
-        <form
-          class="signin-form"
-          action="upload"
-          method="POST"
-          enctype="multipart/form-data"
-        >
-          <h3><span>UPLOAD FILE</span></h3>
+        <form class="signin-form" action="">
+          <h3><span>SIGN IN</span></h3>
           <div class="vertical-container">
-            <label for="fileName">File Name</label>
-            <input type="text" name="fileName" />
+            <label for="email">Username</label>
+            <input type="email" />
           </div>
           <div class="vertical-container">
-            <label for="file">Upload a File</label>
-            <input type="file" name="file" />
+            <label for="password">Password</label>
+            <input type="password" name="password" />
           </div>
-          <input type="submit" value="submit" class="btn" />
+          <div>
+            <input type="checkbox" name="remember-me" id="" />
+            <label for="checkbox">Remember Me</label>
+          </div>
+
+          <input type="submit" value="Sign In" class="btn" />
+          <p>
+            <span>Don't have an account?</span> <a href="/signup">Sign Up</a>
+          </p>
         </form>
       </div>
     </header>
+
     <%- include("./partials/footer.ejs") %>
+
+    </div> 
   </body>
 </html>

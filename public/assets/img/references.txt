@@ -1,0 +1,8 @@
+<img src="https://img.icons8.com/external-xnimrodx-blue-xnimrodx/64/000000/external-fake-politics-xnimrodx-blue-xnimrodx.png"/>
+
+About Page Content
+
+Many online certificate-issuing services are being made available, and the use of those services has increased due to their convenience and diversification. However, development of new hacking techniques has introduced new threats to online certificate issuing services. Our website aims at the mitigation of such threats to prevent forgery of certificates. We incorporate Web3.0 technologies to achieve the goal. Hence, we use :
+•	Crust to store the certificates in a decentralised storage. 
+•	Polygon to boost the scalability of the decentralised crust architecture.  
+•	NFTs for each document to retain the validity and authenticity of the documents.

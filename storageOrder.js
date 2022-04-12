@@ -10,8 +10,8 @@ const api = new ApiPromise({
 
 async function placeStorageOrder(cid, size) {
   // 1. Construct place-storage-order tx
-  const fileCid = cid; // IPFS CID, take `Qm123` as example
-  const fileSize = size; // Let's say 2 gb(in byte)
+  const fileCid = cid;
+  const fileSize = size;
   const tips = 0;
   const memo = "";
   console.log({ fileCid, fileSize });

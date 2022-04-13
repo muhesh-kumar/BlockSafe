@@ -144,25 +144,7 @@ async function addFileAuth(file_name, file_path, dir_name) {
   result = await all(ipfs.files.ls("/" + dir_name));
   const cur_file = result.find((r) => r.name == file_name);
   console.log({ cur_file });
+  // IMP: don't change or remove this line
   await placeStorageOrder(cur_file.cid, cur_file.size);
-  // const cid = result[0].cid;
-  // const size = result[0].size;
-  // get current account from cookies
-  // // 2. Add file to ipfs
-  // const { cid } = await ipfs.add({
-  //   path: file_path,
-  //   content: fileBuffer,
-  // });
-  // console.log("CIDDDDD");
-  // console.log(cid);
-
-  // // 3. Get file status from ipfs
-  // const fileStat = await ipfs.files.stat("/ipfs/" + cid);
-  // console.log("FILESTAT");
-  // console.log(fileStat);
-  // return {
-  //   cumulativeSize: fileStat.cumulativeSize,
-  //   cid: fileStat.cid,
-  // };
-  return { dir_name: dir_name, files: result };
+    return { dir_name: dir_name, files: result };
 }

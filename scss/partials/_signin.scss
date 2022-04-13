@@ -76,8 +76,17 @@
 #file-upload {
   // margin-top: 15rem !important;
   width: 60% !important;
+  gap: 1rem;
   display: flex !important;
   flex-direction: column !important;
   justify-content: center !important;
   align-items: center !important;
+
+  a {
+    color: $dark-color;
+  }
+
+  a:hover {
+    color: $dark-color-tint;
+  }
 }

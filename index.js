@@ -7,9 +7,9 @@ const path = require("path");
 const placeStorageOrder = require("./storageOrder");
 const cookieParser = require("cookie-parser");
 const all = require("it-all");
-var Web3 = require("web3");
-var web3 = new Web3(Web3.givenProvider || "https://rpc-mumbai.matic.today");
-web3.eth.getAccounts(console.log);
+// var Web3 = require("web3");
+// var web3 = new Web3(Web3.givenProvider || "https://rpc-mumbai.matic.today");
+// web3.eth.getAccounts(console.log);
 
 // var web3 = new Web3(window.ethereum);
 require("dotenv").config();
@@ -142,6 +142,9 @@ async function addFileAuth(file_name, file_path, dir_name) {
   console.log(result);
   await ipfs.files.mv("/" + file_name, "/" + dir_name);
   result = await all(ipfs.files.ls("/" + dir_name));
+  const cur_file = result.find((r) => r.name == file_name);
+  console.log({ cur_file });
+  await placeStorageOrder(cur_file.cid, cur_file.size);
   // const cid = result[0].cid;
   // const size = result[0].size;
   // get current account from cookies
@@ -157,7 +160,6 @@ async function addFileAuth(file_name, file_path, dir_name) {
   // const fileStat = await ipfs.files.stat("/ipfs/" + cid);
   // console.log("FILESTAT");
   // console.log(fileStat);
-  // await placeStorageOrder(fileStat.cid, fileStat.cumulativeSize);
   // return {
   //   cumulativeSize: fileStat.cumulativeSize,
   //   cid: fileStat.cid,

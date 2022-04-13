@@ -1,20 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Block Safe | <%= title %></title>
     <link rel="stylesheet" href="css/styles.min.css" />
-</head>
+  </head>
 
-<body class="file-uploaded-body">
-    <form method="POST" enctype="multipart/form" action="/view-uploads">
-        <input type="text" name="account" id="account" placeholder="Account public id">
-        <input type="submit" class="btn" id="submit" />
-    </form>
-
-</body>
-
+  <body class="signin-body">
+    <header class="signin-header">
+      <div class="signin-container">
+        <form
+          method="POST"
+          enctype="multipart/form"
+          action="/view-uploads"
+          class="signin-form"
+        >
+          <input
+            type="text"
+            name="account"
+            id="account"
+            placeholder="Account public id"
+          />
+          <input type="submit" class="btn" id="submit" /> -->
+        <!-- </form>
+      </div>
+    </header>
+  </body>
 </html>

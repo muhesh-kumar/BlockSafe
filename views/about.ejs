@@ -10,10 +10,58 @@
 
     <link rel="stylesheet" href="css/styles.min.css" />
   </head>
-  <body class="signin-body">
+  <body class="about-body">
     <%- include("./partials/navbar.ejs") %>
 
-    <header class="container"></header>
+    <header>
+      <div class="container">
+        <div class="header__content">
+          <h3>
+            Many online certificate-issuing services are being made available,
+            and the use of those services has increased due to their convenience
+            and diversification.
+          </h3>
+          <h3>
+            However, development of new hacking techniques has introduced new
+            threats to online certificate issuing services.
+          </h3>
+          <h3>
+            Our website aims at the mitigation of such threats to prevent
+            forgery of certificates. We incorporate Web3.0 technologies to
+            achieve the goal. Hence, we use :
+          </h3>
+          <ul class="bulleted-list">
+            <li>Crust to store the certificates in a decentralised storage.</li>
+            <li>
+              Polygon boost the scalability of the decentralised crust
+              architecture.
+            </li>
+            <li>
+              NFTs for each document to retain the validity and authenticity of
+              the documents.
+            </li>
+          </ul>
+        </div>
+        <div class="whole-img-container">
+          <div class="img-container">
+            <div class="left-col">
+              <img src="assets/icons8-blockchain-60.png" />
+            </div>
+            <div class="right-col">
+              <img src="assets/fake-news.png" alt="" />
+            </div>
+          </div>
+          <div class="img-container">
+            <div class="left-col">
+              <img class="ntfs" src="assets/nfts.webp" />
+            </div>
+            <div class="right-col">
+              <img src="assets/icons8-blockchain-64.png" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
 
     <%- include("./partials/footer.ejs") %>
   </body>

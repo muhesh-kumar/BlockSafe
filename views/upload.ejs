@@ -13,6 +13,8 @@
 
 <body class="signin-body">
   <%- include("./partials/navbar.ejs") %>
+  
+  <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
 
   <header class="signin-header">
     <div class="signin-container">
@@ -27,6 +29,7 @@
           <input type="file" name="file" id="file" />
         </div>
         <input type="submit" value="submit" class="btn" disabled="true" id="btn-dis" />
+        
         <input type="hidden" name="account" id="account" value="" />
       </form>
     </div>
@@ -34,9 +37,12 @@
   <%- include("./partials/footer.ejs") %>
 </body>
 <script>
-  const {
-    ethereum
-  } = window;
+    fetch("NCC.json")
+.then(response => {
+   return response.json();
+})
+.then(SmartContract => {
+  const { ethereum } = window;
   const metamaskIsInstalled = ethereum && ethereum.isMetaMask;
   async function onInit1() {
     if (metamaskIsInstalled) {
@@ -46,11 +52,18 @@
       const networkId = await window.ethereum.request({
         method: "net_version",
       });
+      web3 = new Web3(ethereum)
       const account = accounts[0];
       if (networkId == 80001) {
         console.log(String(account));
         document.getElementById("account").value = String(account);
         document.getElementById("btn-dis").disabled = false;
+      var YourContract = await new web3.eth.Contract(SmartContract, "0xCF0F196aEf500ad4624FD28cAb1C7bFaaD1b7557");
+      YourContract.methods.createToken("https://ipfs.io/ipfs/QmbPDwHQdBEchkKvUBEuBJCJqUzFbL2nBy1QY6YHx76Wag/xczx","1").send({
+              to: "0xCF0F196aEf500ad4624FD28cAb1C7bFaaD1b7557",
+              from: account,
+              value:web3.utils.toWei((0).toString(), "ether"),
+            })
 
       } else {
         alert("Change Network to Mumbai Testnet");
@@ -61,6 +74,7 @@
   }
 
   onInit1();
+})
 </script>
 
 </html>

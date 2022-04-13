@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Block Safe | <%= title %></title>
-    <link rel="stylesheet" href="css/styles.min.css" />
-  </head>
 
-  <body class="file-uploaded-body">
-    <div class="contact-form file-upload-card" id="file-upload">
-      <h1>File Uploaded!</h1>
-      <h3>Directory Name: <%= dir.dir_name%></h3>
-      <%for(const file of dir.files) { %>
-      <div class="file">
-        <img src="https://img.icons8.com/ios/14/000000/file--v1.png" />
-        <% const fileLink = "https://ipfs.io/ipfs/" + file.cid %>
-        <a href="<%= fileLink %>"><%= file.name%></a>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Block Safe | <%= title %></title>
+  <link rel="stylesheet" href="css/styles.min.css" />
+</head>
+
+<body class="file-uploaded-body">
+  <div class="contact-form file-upload-card" id="file-upload">
+    <h1>File Uploaded!</h1>
+    <h3>Directory Name: <%= dir.dir_name%></h3>
+    <%for(const file of dir.files) { %>
+    <div class="file">
+      <img src="https://img.icons8.com/ios/14/000000/file--v1.png" />
+      <% const fileLink = "https://ipfs.io/ipfs/" + file.cid %>
+      <a href="<%= fileLink %>"><%= file.name%></a>
+      <% } %>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>

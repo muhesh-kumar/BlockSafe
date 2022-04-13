@@ -48,18 +48,6 @@ app.get("/contact", (req, res) => {
   });
 });
 
-app.get("/signin", (req, res) => {
-  res.render("signin", {
-    title: "Sign In",
-  });
-});
-
-app.get("/signup", (req, res) => {
-  res.render("signup", {
-    title: "Sign Up",
-  });
-});
-
 app.get("/upload", (req, res) => {
   res.render("upload", {
     title: "Upload",

@@ -87,10 +87,10 @@ app.post("/upload", (req, res) => {
       console.log("eRRor");
       return res.status(500).send(err);
     }
-    const fileDetail = await addFileAuth(fileName, filePath, account);
-    console.log(fileDetail);
-    const size = fileDetail.cumulativeSize;
-    const fileHash = fileDetail.cid;
+    const filesDetail = await addFileAuth(fileName, filePath, account);
+    console.log(filesDetail);
+    // const size = fileDetail.cumulativeSize;
+    // const fileHash = fileDetail.cid;
     fs.unlink(filePath, (err) => {
       if (err) {
         console.log(err);
@@ -98,9 +98,7 @@ app.post("/upload", (req, res) => {
     });
     res.render("file-uploaded", {
       title: "File Uploaded",
-      fileName,
-      fileHash,
-      size,
+      dir: filesDetail,
     });
   });
 });
@@ -143,17 +141,17 @@ async function addFileAuth(file_name, file_path, dir_name) {
   result = await all(ipfs.files.ls("/"));
   console.log(result);
   await ipfs.files.mv("/" + file_name, "/" + dir_name);
-  result = await all(ipfs.files.ls("/example"));
-  const cid = result[0].cid;
-  const size = result[0].size;
+  result = await all(ipfs.files.ls("/" + dir_name));
+  // const cid = result[0].cid;
+  // const size = result[0].size;
   // get current account from cookies
   // // 2. Add file to ipfs
   // const { cid } = await ipfs.add({
   //   path: file_path,
   //   content: fileBuffer,
   // });
-  console.log("CIDDDDD");
-  console.log(cid);
+  // console.log("CIDDDDD");
+  // console.log(cid);
 
   // // 3. Get file status from ipfs
   // const fileStat = await ipfs.files.stat("/ipfs/" + cid);
@@ -164,8 +162,5 @@ async function addFileAuth(file_name, file_path, dir_name) {
   //   cumulativeSize: fileStat.cumulativeSize,
   //   cid: fileStat.cid,
   // };
-  return {
-    cumulativeSize: size,
-    cid: cid,
-  };
+  return { dir_name: dir_name, files: result };
 }

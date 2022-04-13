@@ -13,7 +13,7 @@ const all = require("it-all");
 
 // var web3 = new Web3(window.ethereum);
 require("dotenv").config();
-
+let account;
 console.log(ipfsClient);
 const ipfs = ipfsClient.create({
   host: "localhost",
@@ -66,10 +66,19 @@ app.get("/upload", (req, res) => {
   });
 });
 
-app.get("/file-uploaded", (req, res) => {
-  res.render("file-uploaded", {
-    title: "File Uploaded",
+app.get("/view-uploads", async (req, res) => {
+  // console.log(account);
+  // let result = await getFilesFromDir(account);
+  // console.log({ result });
+  res.render("view-uploads", {
+    title: " See Uploads",
   });
+});
+app.post("/view-uploads", async (req, res) => {
+  const account = req.body.account;
+  console.log({ account });
+  let result = await getFilesFromDir(account);
+  res.render("file-uploaded", { title: " File Uploaded", dir: result });
 });
 
 app.listen(3000, () => {
@@ -78,7 +87,7 @@ app.listen(3000, () => {
 app.post("/upload", (req, res) => {
   const file = req.files.file;
   const fileName = req.body.fileName;
-  const account = req.body.account;
+  account = req.body.account;
   console.log("account from form");
   console.log(account);
   const filePath = FILE_DIR + "/" + fileName;
@@ -103,6 +112,7 @@ app.post("/upload", (req, res) => {
   });
 });
 const ethers = require("ethers");
+const { dir } = require("console");
 
 async function addFileAuth(file_name, file_path, dir_name) {
   const pair = ethers.Wallet.createRandom();
@@ -125,19 +135,20 @@ async function addFileAuth(file_name, file_path, dir_name) {
   });
   // try to create the directory
   try {
+    console.log("making directory");
     await ipfs.files.mkdir("/" + dir_name);
   } catch (error) {
-    console.error(error);
+    console.log("directory already exists: " + dir_name);
+    console.log(error);
   }
   let result = await ipfs.files.stat("/" + dir_name);
-  console.log("making direfctoryu");
+  console.log("Checking Directory: " + dir_name);
   console.log(result);
-  console.log("ls dir");
-  result = await all(ipfs.files.ls("/example"));
-  console.log(result);
+  console.log("Path of file (locally) " + file_path);
   console.log(file_path);
+  console.log("writing file to root (IPFS)");
   await ipfs.files.write("/" + file_name, fileBuffer, { create: true });
-  console.log("ls dir");
+  console.log("ls root");
   result = await all(ipfs.files.ls("/"));
   console.log(result);
   await ipfs.files.mv("/" + file_name, "/" + dir_name);
@@ -146,5 +157,22 @@ async function addFileAuth(file_name, file_path, dir_name) {
   console.log({ cur_file });
   // IMP: don't change or remove this line
   await placeStorageOrder(cur_file.cid, cur_file.size);
-    return { dir_name: dir_name, files: result };
+  return { dir_name: dir_name, files: result };
+}
+async function getFilesFromDir(dirName) {
+  dirName = String(dirName).toLowerCase();
+  console.log({ dirName });
+  const pair = ethers.Wallet.createRandom();
+  const sig = await pair.signMessage(pair.address);
+  const authHeaderRaw = `eth-${pair.address}:${sig}`;
+  const authHeader = Buffer.from(authHeaderRaw).toString("base64");
+  const ipfsW3GW = "https://crustipfs.xyz";
+  const ipfs = ipfsClient.create({
+    url: `${ipfsW3GW}/api/v0`,
+    headers: {
+      authorization: `Basic ${authHeader}`,
+    },
+  });
+  let result = await all(ipfs.files.ls("/" + dirName));
+  return { dir_name: dirName, files: result };
 }
